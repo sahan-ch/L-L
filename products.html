@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Products — Lustre & Lore</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+/* ====== Base ====== */
+body {
+  font-family: 'Cinzel', serif;
+  background: #fdfaf6;
+  color: #2b1e0f;
+  margin: 0;
+}
+a { text-decoration: none; color: #b88746; }
+a:hover { color: #7a5c2b; }
+
+/* ====== Header ====== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 36px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e7d09a;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+header img { height: 56px; border-radius: 6px; }
+.site-name { font-weight: 800; color: #b88746; font-size: 20px; }
+
+/* ====== Menu ====== */
+.menu button {
+  background: none;
+  border: none;
+  color: #b88746;
+  font-weight: 600;
+  font-size: 15px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: color 0.3s;
+  text-transform: none;
+}
+.menu button:hover { color: #7a5c2b; }
+
+/* ====== Main content ====== */
+main {
+  padding: 60px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+h1 { color: #b88746; text-align: center; margin-bottom: 24px; }
+p { color: #5b3b00; line-height: 1.6; margin-top: 10px; }
+
+/* ====== Category buttons ====== */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.category-buttons button {
+  background: #b88746;
+  color: #fdfaf6;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.3s;
+}
+.category-buttons button:hover {
+  background: #7a5c2b;
+  transform: scale(1.05);
+}
+
+/* ====== Grid & cards ====== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: #fff8f0;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #e7d09a;
+  display: none; /* initially hidden */
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.card h3 { color: #b88746; margin-top: 12px; }
+.card p { color: #5b3b00; }
+
+/* ====== Footer ====== */
+footer {
+  background: #fdfaf6;
+  color: #b88746;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 40px;
+  border-top: 1px solid #b88746;
+}
+.social-icon { color: #b88746; font-size: 20px; margin: 0 10px; transition: color 0.3s, transform 0.3s; }
+.social-icon:hover { color: #7a5c2b; transform: scale(1.1); }
+
+/* ====== Responsive ====== */
+@media(max-width:600px){
+  main { padding: 40px 16px; }
+  h1 { font-size: 26px; }
+  .category-buttons button { font-size: 14px; padding: 8px 14px; }
+  .card img { height: 150px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div style="display:flex;align-items:center;gap:12px">
+    <img src="WhatsApp Image 2025-10-31 at 22.50.35_c587fbb9.jpg" alt="logo">
+    <div class="site-name">Lustre & Lore</div>
+  </div>
+  <div class="menu">
+    <button onclick="location.href='index.html'">Home</button>
+    <button onclick="location.href='about.html'">About</button>
+    <button onclick="location.href='contact.html'">Contact</button>
+    <button onclick="location.href='privacy.html'">Privacy</button>
+    <button onclick="location.href='terms.html'">Terms</button>
+    <button onclick="location.href='payment.html'">Payment & Delivery</button>
+  </div>
+</header>
+
+<main>
+<h1>Our Collections</h1>
+<p>Tap a category below to view the products. You can add new products or update descriptions anytime.</p>
+
+<!-- Floating Category Buttons -->
+<div class="category-buttons">
+  <button onclick="showCategory('rings')">Rings</button>
+  <button onclick="showCategory('bangles')">Bangles</button>
+  <button onclick="showCategory('pendants')">Pendants</button>
+  <button onclick="showCategory('bracelets')">Bracelets</button>
+  <button onclick="showCategory('earrings')">Earrings</button>
+  <button onclick="showCategory('wedding')">Wedding Rings</button>
+</div>
+
+<!-- Product Grid -->
+<div class="grid">
+  <!-- Rings -->
+  <div class="card rings">
+    <img src="ring-sample.jpg" alt="Ring sample">
+    <h3>Rings</h3>
+    <p>Add ring images & descriptions here.</p>
+  </div>
+
+  <!-- Bangles -->
+  <div class="card bangles">
+    <img src="bangle-sample.jpg" alt="Bangle sample">
+    <h3>Bangles</h3>
+    <p>Add bangle images & descriptions here.</p>
+  </div>
+
+  <!-- Pendants -->
+  <div class="card pendants">
+    <img src="pendant-sample.jpg" alt="Pendant sample">
+    <h3>Pendants</h3>
+    <p>Add pendant images & descriptions here.</p>
+  </div>
+
+  <!-- Bracelets -->
+  <div class="card bracelets">
+    <img src="bracelet-sample.jpg" alt="Bracelet sample">
+    <h3>Bracelets</h3>
+    <p>Add bracelet images & descriptions here.</p>
+  </div>
+
+  <!-- Earrings -->
+  <div class="card earrings">
+    <img src="earrings-sample.jpg" alt="Earrings sample">
+    <h3>Earrings</h3>
+    <p>Add earring images & descriptions here.</p>
+  </div>
+
+  <!-- Wedding Rings -->
+  <div class="card wedding">
+    <img src="wedding-ring-sample.jpg" alt="Wedding Ring sample">
+    <h3>Wedding Rings</h3>
+    <p>Add wedding ring images & descriptions here.</p>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div>
+    <a href="https://wa.me/yourplaceholder" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://facebook.com/yourplaceholder" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://instagram.com/yourplaceholder" class="social-icon"><i class="fab fa-instagram"></i></a>
+    <a href="https://tiktok.com/@yourplaceholder" class="social-icon"><i class="fab fa-tiktok"></i></a>
+  </div>
+  <p style="margin-top:12px">© 2025 Lustre & Lore – All rights reserved</p>
+</footer>
+
+<script>
+// Show products by category
+function showCategory(category) {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.style.display = card.classList.contains(category) ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>

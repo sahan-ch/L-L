@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lustre & Lore — Dream Jewelry Designer</title>
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ====== Base ====== */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Cinzel',serif;background:#fdfaf6;color:#2b1e0f}
+a{color:inherit;text-decoration:none}
+
+/* ====== Header ====== */
+header{position:fixed;left:0;right:0;top:0;height:86px;display:flex;align-items:center;justify-content:space-between;padding:12px 36px;z-index:1200;background:rgba(255,255,255,0.85);backdrop-filter: blur(6px)}
+.logo { display: flex; align-items: center; gap: 12px; }
+#siteLogo { height: 64px; width: auto; border-radius: 6px; }
+.site-name { font-weight: 800; color: #b88746; letter-spacing: 1px; text-transform: none; font-size: 20px; }
+.menu{display:flex;gap:14px;align-items:center}
+.menu button{background:none;border:none;color:#b88746;padding:8px 10px;font-weight:700;cursor:pointer}
+.menu button:hover{color:#7a5c2b}
+
+/* ====== Hero / Slider ====== */
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;padding-top:86px;position:relative;overflow:hidden}
+.slider{width:100%;max-width:1100px;height:560px;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.3);position:relative}
+.slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.slider img.active{opacity:1}
+
+/* ====== CTA Buttons ====== */
+.cta-area{position:absolute;left:50%;transform:translateX(-50%);bottom:48px;display:flex;gap:16px;z-index:40}
+.dream-btn, .gift-btn{position:relative;padding:16px 28px;border-radius:28px;border:none;font-weight:700;letter-spacing:.4px;cursor:pointer;box-shadow:0 12px 28px rgba(184,135,70,0.2);transition:all .3s}
+.dream-btn{background:linear-gradient(90deg,#fefefe,#f7f0e6);color:#b88746}
+.dream-btn:hover{transform:scale(1.05);background:linear-gradient(90deg,#fff9f0,#fdf5e6)}
+.gift-btn{background:linear-gradient(90deg,#f7e6f0,#fff0f7);color:#b44d84}
+.gift-btn:hover{transform:scale(1.05);background:linear-gradient(90deg,#fbeaf7,#ffeaf6)}
+
+/* ====== Modal ====== */
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.68);display:none;align-items:center;justify-content:center;padding:20px;z-index:1400}
+.modal{background:#fff;color:#111;border-radius:12px;padding:20px;max-width:680px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+.modal h3{font-size:20px;margin-bottom:10px;color:#2b2b2b}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid input, .form-grid select{padding:10px;border-radius:8px;border:1px solid #ddd;font-size:15px}
+.form-grid .full{grid-column:1/-1}
+.modal .submit{margin-top:12px;padding:12px 14px;border-radius:10px;border:none;background:#2b1e0f;color:#fff;cursor:pointer}
+
+/* ====== Selection area ====== */
+.selection-area{display:none;padding:26px;min-height:60vh;position:relative}
+.info-banner{background:#fff8e6;color:#5b3b00;padding:12px;border-radius:8px;border:1px solid #f2d89b;margin-bottom:12px;font-weight:700}
+.rows{display:grid;gap:12px}
+.row{display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03)}
+.row img{width:49%;height:150px;object-fit:cover;border-radius:8px;cursor:pointer;transition:transform .12s,outline .12s}
+.row img.selected{outline:4px solid rgba(184,135,70,0.95);transform:scale(1.02)}
+.submit-final{display:block;margin:22px auto 0;padding:12px 20px;border-radius:12px;border:none;background:linear-gradient(90deg,#fefefe,#f7f0e6);color:#b88746;font-weight:900;cursor:pointer}
+
+/* ====== Gift type buttons ====== */
+.gift-type{display:none;text-align:center;margin-top:20px}
+.gift-type button{padding:14px 24px;border-radius:20px;margin:0 12px;border:none;background:#b88746;color:#fff;cursor:pointer;transition:all .3s}
+.gift-type button:hover{transform:scale(1.05);background:#7a5c2b}
+
+/* ====== Floating WhatsApp button ====== */
+.wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,0.3);z-index:1600;cursor:pointer;}
+.wa-float i{font-size:22px}
+
+/* ====== Footer ====== */
+footer{padding:30px 20px;background:radial-gradient(circle,#fffdf6,#f3f0e6);color:#b88746;text-align:center;margin-top:40px;border-top:1px solid #b88746}
+.social-icons{margin-bottom:15px}
+.social-icons a{display:inline-block;font-size:24px;color:#b88746;margin:0 10px;transition:transform .3s}
+.social-icons a:hover{color:#7a5c2b;text-shadow:0 0 10px #b88746;transform:scale(1.15)}
+.footer-text{font-size:14px;color:#8c6d3d;letter-spacing:1px;padding-top:6px}
+
+/* ====== Responsive ====== */
+@media (max-width:900px){.slider{height:420px}.form-grid{grid-template-columns:1fr}.row img{height:120px}.cta-area{flex-direction:column;gap:12px}}
+@media (max-width:480px){.slider{height:360px}.logo img{height:50px}.dream-btn,.gift-btn{font-size:15px;padding:12px 18px}.row img{height:110px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="index.html" aria-label="Home">
+      <img src="WhatsApp Image 2025-10-31 at 22.50.35_c587fbb9.jpg" alt="Lustre & Lore logo" id="siteLogo">
+    </a>
+    <div class="site-name">Lustre & Lore</div>
+  </div>
+  <div class="menu">
+    <button type="button" onclick="location.href='about.html'">About Us</button>
+    <button type="button" onclick="location.href='products.html'">Our Products</button>
+    <button type="button" onclick="location.href='contact.html'">Contact Us</button>
+    <button type="button" onclick="location.href='payment.html'">Payment & Delivery</button>
+    <button type="button" onclick="location.href='privacy.html'">Privacy Policy</button>
+    <button type="button" onclick="location.href='terms.html'">Terms & Conditions</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="slider" id="heroSlider">
+    <img src="cover.png" class="active" alt="slider1">
+    <img src="orange.jpg" alt="slider2">
+    <img src="blue.jpg" alt="slider3">
+    <img src="yellow.jpg" alt="slider4">
+    <img src="red.jpg" alt="slider5">
+    <img src="purple.jpg" alt="slider6">
+  </div>
+
+  <div class="cta-area">
+    <button type="button" class="dream-btn" id="dreamBtn">Design My Dream</button>
+    <button type="button" class="gift-btn" id="giftBtn">Send as a Gift</button>
+  </div>
+</section>
+
+<!-- CUSTOMER DETAILS MODAL -->
+<div class="backdrop" id="backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Share your details</h3>
+    <div class="form-grid">
+      <input id="name" placeholder="Full name" type="text">
+      <input id="dob" placeholder="Date of birth (YYYY-MM-DD)" type="date">
+      <input id="town" placeholder="Birth town" type="text">
+      <input id="time" placeholder="Birth time (HH:MM)" type="time">
+      <input id="whatsapp" placeholder="WhatsApp number (e.g. +9470...)" class="full" type="tel">
+      <select id="jewelry" class="full">
+        <option value="">Select Required Jewelry</option>
+        <option>Engagement Rings</option>
+        <option>Pendants</option>
+        <option>Bangles</option>
+        <option>Bracelets</option>
+        <option>Necklace</option>
+        <option>Earrings</option>
+      </select>
+    </div>
+    <button type="button" class="submit" id="formSubmit">Submit and Continue</button>
+  </div>
+</div>
+
+<!-- Selection Area for Dream -->
+<section class="selection-area" id="selectionArea" aria-hidden="true">
+  <div class="info-banner" id="infoBanner">Select one image from each row</div>
+  <div class="rows" id="rowsContainer" aria-live="polite"></div>
+  <button type="button" class="submit-final" id="submitFinal" style="display:none">Submit & Send Email</button>
+</section>
+
+<!-- Gift type -->
+<div class="gift-type" id="giftType" style="display:none">
+  <button type="button" id="giftHer">To Her</button>
+  <button type="button" id="giftHim">To Him</button>
+</div>
+
+<!-- Gift info form -->
+<div class="backdrop" id="giftBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Gift Details</h3>
+    <div class="form-grid">
+      <input id="giftName" placeholder="Recipient Name" type="text">
+      <input id="giftWhatsApp" placeholder="WhatsApp Number" type="tel">
+      <select id="giftJewelry" class="full">
+        <option value="">Select Required Jewelry</option>
+        <option>Engagement Rings</option>
+        <option>Pendants</option>
+        <option>Bangles</option>
+        <option>Bracelets</option>
+        <option>Necklace</option>
+        <option>Earrings</option>
+      </select>
+      <input id="giftAddress" placeholder="Address" class="full" type="text">
+    </div>
+    <button type="button" class="submit" id="giftSubmit">Submit Gift</button>
+  </div>
+</div>
+
+<div class="wa-float" id="waFloat" style="display:none" title="Contact on WhatsApp">
+  <i class="fab fa-whatsapp" aria-hidden="true"></i>
+</div>
+
+<footer>
+  <div class="social-icons">
+    <a href="https://wa.me/94701960497" target="_blank" rel="noreferrer"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.facebook.com/" target="_blank" rel="noreferrer"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/" target="_blank" rel="noreferrer"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer"><i class="fab fa-tiktok"></i></a>
+  </div>
+  <div class="footer-text">© 2025 Lustre & Lore — Crafted with Elegance</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const CONFIG = {
+    emailTo: 'lustre.loredesign@gmail.com',
+    dreamImages: [
+      'ONE.jpg','ONE2.jpg','TWO.jpg','TWO2.jpg','THREE.jpg','THREE2.jpg',
+      'FOUR.jpg','FOUR2.jpg','FIVE.jpg','FIVE2.jpg','SIX.jpg','SIX2.jpg',
+      'SEVEN.jpg','SEVEN2.jpg','EIGHT.jpg','EIGHT2.jpg','NINE.jpg','NINE2.jpg'
+    ],
+    waPhone: '94701960497'
+  };
+
+  // slider
+  (function(){
+    const slider = document.getElementById('heroSlider');
+    if(!slider) return;
+    const imgs = slider.querySelectorAll('img');
+    let idx = 0;
+    setInterval(()=>{
+      imgs.forEach(i=>i.classList.remove('active'));
+      idx = (idx+1) % imgs.length;
+      imgs[idx].classList.add('active');
+    },3000);
+  })();
+
+  // elements
+  const dreamBtn = document.getElementById('dreamBtn');
+  const giftBtn = document.getElementById('giftBtn');
+  const backdrop = document.getElementById('backdrop');
+  const giftBackdrop = document.getElementById('giftBackdrop');
+  const formSubmit = document.getElementById('formSubmit');
+  const selectionArea = document.getElementById('selectionArea');
+  const rowsContainer = document.getElementById('rowsContainer');
+  const submitFinal = document.getElementById('submitFinal');
+  const waFloat = document.getElementById('waFloat');
+
+  let userData = null;
+  let selections = [];
+
+  if(dreamBtn) dreamBtn.addEventListener('click', ()=>{
+    if(backdrop){ backdrop.style.display='flex'; backdrop.setAttribute('aria-hidden','false'); const el = document.getElementById('name'); if(el) el.focus(); }
+  });
+  if(giftBtn) giftBtn.addEventListener('click', ()=> {
+    const gt = document.getElementById('giftType'); if(gt) gt.style.display='block';
+  });
+
+  if(backdrop) backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop){ backdrop.style.display='none'; backdrop.setAttribute('aria-hidden','true'); }}); 
+  if(giftBackdrop) giftBackdrop.addEventListener('click', (e)=>{ if(e.target === giftBackdrop){ giftBackdrop.style.display='none'; giftBackdrop.setAttribute('aria-hidden','true'); }});
+
+  if(formSubmit){
+    formSubmit.addEventListener('click', ()=>{
+      const name = (document.getElementById('name')||{}).value?.trim() || '';
+      const dob = (document.getElementById('dob')||{}).value?.trim() || '';
+      const town = (document.getElementById('town')||{}).value?.trim() || '';
+      const time = (document.getElementById('time')||{}).value?.trim() || '';
+      const whatsapp = (document.getElementById('whatsapp')||{}).value?.trim() || '';
+      const jewelry = (document.getElementById('jewelry')||{}).value?.trim() || '';
+
+      if(!name || !dob || !town || !time || !whatsapp || !jewelry){
+        alert('Please fill all fields');
+        return;
+      }
+      userData = { name, dob, town, time, whatsapp, jewelry };
+      console.log('userData', userData);
+      backdrop.style.display='none';
+      buildSelectionGrid();
+      selectionArea.style.display='block';
+      selectionArea.setAttribute('aria-hidden','false');
+      waFloat.style.display='flex';
+      if(selectionArea) window.scrollTo({ top: selectionArea.offsetTop - 20, behavior: 'smooth' });
+    });
+  }
+
+  function buildSelectionGrid(){
+    if(!rowsContainer) return;
+    rowsContainer.innerHTML='';
+    const pairs = CONFIG.dreamImages || [];
+    const rows = Math.floor(pairs.length / 2);
+    selections = Array(rows).fill(null);
+    for(let i=0;i<rows;i++){
+      const row = document.createElement('div');
+      row.className = 'row';
+      const src1 = pairs[i*2] || '';
+      const src2 = pairs[i*2+1] || '';
+      [src1, src2].forEach((src, j) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `row-${i+1}-img-${j+1}`;
+        img.addEventListener('click', ()=>{
+          row.querySelectorAll('img').forEach(x=>x.classList.remove('selected'));
+          img.classList.add('selected');
+          selections[i] = src;
+          if(!selections.includes(null) && submitFinal) submitFinal.style.display='block';
+        });
+        row.appendChild(img);
+      });
+      rowsContainer.appendChild(row);
+    }
+    if(submitFinal) submitFinal.style.display='none';
+  }
+
+  if(submitFinal){
+    submitFinal.addEventListener('click', ()=>{
+      if(!userData){
+        alert('Please complete your details first.');
+        return;
+      }
+      const chosen = selections.map((s, idx)=> `Row ${idx+1}: ${s || 'No selection'}`).join('\n');
+      const bodyText = `Customer: ${userData.name}\nDOB: ${userData.dob}\nTown: ${userData.town}\nTime: ${userData.time}\nWhatsApp: ${userData.whatsapp}\nRequired Jewelry: ${userData.jewelry}\n\nSelections:\n${chosen}`;
+      const subject = `Dream Jewelry Submission for ${userData.name}`;
+      const mailto = `mailto:${CONFIG.emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      console.log('open mailto', mailto);
+      const opened = window.open(mailto, '_blank');
+      if(!opened){
+        window.location.href = mailto;
+      }
+    });
+  }
+
+  // Gift flow
+  const giftType = document.getElementById('giftType');
+  const giftHer = document.getElementById('giftHer');
+  const giftHim = document.getElementById('giftHim');
+  const giftSubmit = document.getElementById('giftSubmit');
+
+  function openGiftForm(type){
+    if(giftType) giftType.style.display='none';
+    if(giftBackdrop){ giftBackdrop.style.display='flex'; giftBackdrop.setAttribute('aria-hidden','false'); }
+    const title = giftBackdrop?.querySelector('h3');
+    if(title) title.textContent = `Gift Details (${type})`;
+  }
+  if(giftHer) giftHer.addEventListener('click', ()=> openGiftForm('Her'));
+  if(giftHim) giftHim.addEventListener('click', ()=> openGiftForm('Him'));
+
+  if(giftSubmit){
+    giftSubmit.addEventListener('click', ()=>{
+      const name = (document.getElementById('giftName')||{}).value?.trim() || '';
+      const whatsapp = (document.getElementById('giftWhatsApp')||{}).value?.trim() || '';
+      const jewelry = (document.getElementById('giftJewelry')||{}).value?.trim() || '';
+      const address = (document.getElementById('giftAddress')||{}).value?.trim() || '';
+      if(!name || !whatsapp || !jewelry || !address){
+        alert('Please fill all fields');
+        return;
+      }
+      // send gift info to WhatsApp number with prefilled message
+      const message = `Gift Order:%0ARecipient: ${name}%0AWhatsApp: ${whatsapp}%0ARequired Jewelry: ${jewelry}%0AAddress: ${address}`;
+      const waUrl = `https://wa.me/${CONFIG.waPhone}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank');
+    });
+  }
+
+  // WhatsApp float
+  if(waFloat){
+    waFloat.addEventListener('click', ()=> {
+      window.open(`https://wa.me/${CONFIG.waPhone}`, '_blank');
+    });
+  }
+
+  // broken image fallback
+  window.addEventListener('error', (e)=>{ if(e.target && e.target.tagName==='IMG'){ e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="100%" height="100%" fill="%23f3efe8"/><text x="50%" y="50%" fill="%238c6d3d" font-size="22" text-anchor="middle" dominant-baseline="middle">image not found</text></svg>' } }, true);
+
+}); // DOMContentLoaded
+</script>
+</body>
+</html>
