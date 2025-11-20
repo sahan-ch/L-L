@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Products — Lustre & Lore</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ====== Base ====== */
+body {
+  font-family: 'Cinzel', serif;
+  background: #fdfaf6;
+  color: #2b1e0f;
+  margin: 0;
+}
+a { text-decoration: none; color: #b88746; }
+a:hover { color: #7a5c2b; }
+
+/* ====== Header ====== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 36px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e7d09a;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+header img { height: 110px; width: 110px; border-radius: 6px; object-fit: cover; }
+.logo { display: flex; align-items: center; gap: 12px; }
+.site-name { font-weight: 800; color: #b88746; font-size: 20px; }
+
+/* ====== Menu ====== */
+.menu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.menu button {
+  background: none;
+  border: none;
+  color: #b88746;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: color 0.3s;
+  text-transform: none;
+  white-space: nowrap;
+}
+.menu button:hover { color: #7a5c2b; }
+
+/* ====== Main content ====== */
+main {
+  padding: 60px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+h1 { color: #b88746; text-align: center; margin-bottom: 12px; font-size: 32px; }
+.intro-text { color: #5b3b00; text-align: center; margin-bottom: 30px; line-height: 1.6; }
+
+/* ====== Category buttons ====== */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.category-buttons button {
+  background: #b88746;
+  color: #fdfaf6;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.3s, transform 0.3s;
+  font-size: 14px;
+}
+.category-buttons button:hover {
+  background: #7a5c2b;
+  transform: scale(1.08);
+}
+.category-buttons button.active {
+  background: #7a5c2b;
+  transform: scale(1.08);
+}
+
+/* ====== Product Section ====== */
+.product-section {
+  display: none;
+  margin-bottom: 60px;
+  animation: fadeIn 0.3s ease-in;
+}
+.product-section.active {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.section-title {
+  color: #b88746;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #b88746;
+  padding-bottom: 15px;
+}
+
+/* ====== Grid & cards ====== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.card {
+  background: #fff8f0;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e7d09a;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(184,135,70,0.15);
+}
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.card h3 { 
+  color: #b88746; 
+  margin: 12px 0 8px 0;
+  font-size: 18px;
+}
+.card p { 
+  color: #5b3b00; 
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+.card-btn {
+  background: #b88746;
+  color: #fdfaf6;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.3s;
+  width: 100%;
+}
+.card-btn:hover {
+  background: #7a5c2b;
+}
+
+/* ====== Footer ====== */
+footer {
+  background: #fdfaf6;
+  color: #b88746;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 60px;
+  border-top: 1px solid #b88746;
+}
+.social-icons { margin-bottom: 12px; }
+.social-icon { 
+  color: #b88746; 
+  font-size: 20px; 
+  margin: 0 12px; 
+  transition: color 0.3s, transform 0.3s;
+  display: inline-block;
+}
+.social-icon:hover { 
+  color: #7a5c2b; 
+  transform: scale(1.2);
+}
+
+/* ====== Responsive ====== */
+@media(max-width:900px){
+  header { padding: 12px 20px; }
+  header img { height: 80px; width: 80px; }
+  main { padding: 40px 16px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+}
+@media(max-width:600px){
+  header { padding: 10px; flex-direction: column; gap: 12px; }
+  header img { height: 72px; width: 72px; }
+  .menu { gap: 8px; justify-content: center; }
+  .menu button { font-size: 12px; padding: 6px 10px; }
+  main { padding: 30px 12px; }
+  h1 { font-size: 24px; }
+  .section-title { font-size: 22px; }
+  .category-buttons { gap: 10px; }
+  .category-buttons button { padding: 10px 16px; font-size: 13px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .card { padding: 14px; }
+  .card img { height: 140px; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">
+    <img src="WhatsApp Image 2025-10-31 at 22.50.35_c587fbb9.jpg" alt="Lustre & Lore logo">
+    <div class="site-name">Lustre & Lore</div>
+  </div>
+  <div class="menu">
+    <button onclick="location.href='index.html'">Home</button>
+    <button onclick="location.href='about.html'">About</button>
+    <button onclick="location.href='contact.html'">Contact</button>
+    <button onclick="location.href='payment.html'">Payment & Delivery</button>
+    <button onclick="location.href='privacy.html'">Privacy</button>
+    <button onclick="location.href='terms.html'">Terms</button>
+  </div>
+</header>
+
+<main>
+  <h1>Our Products</h1>
+  <p class="intro-text">Explore our exquisite jewelry collection. Click a category to view our products.</p>
+
+  <!-- Category Buttons -->
+  <div class="category-buttons">
+    <button class="cat-btn active" onclick="showCategory('proposal', event)">Proposal Rings</button>
+    <button class="cat-btn" onclick="showCategory('engagement', event)">Engagement Rings</button>
+    <button class="cat-btn" onclick="showCategory('wedding', event)">Wedding Rings</button>
+    <button class="cat-btn" onclick="showCategory('anniversary', event)">Anniversary Rings</button>
+    <button class="cat-btn" onclick="showCategory('pendants', event)">Pendants</button>
+    <button class="cat-btn" onclick="showCategory('earrings', event)">Earrings</button>
+    <button class="cat-btn" onclick="showCategory('bracelets', event)">Bracelets</button>
+    <button class="cat-btn" onclick="showCategory('bangles', event)">Bangles</button>
+    <button class="cat-btn" onclick="showCategory('necklace', event)">Necklace</button>
+    <button class="cat-btn" onclick="showCategory('other', event)">Other Jewellery</button>
+  </div>
+
+  <!-- Proposal Rings Section -->
+  <section class="product-section active" id="proposal">
+    <h2 class="section-title">Proposal Rings</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="praposal.jpg" alt="Proposal Ring 1">
+        <h3>Proposal Ring</h3>
+        <p>Say the first "Yes" with timeless elegance and brilliance.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Proposal Ring')">Inquire</button>
+      </div>
+     
+    </div>
+  </section>
+
+  <!-- Engagement Rings Section -->
+  <section class="product-section" id="engagement">
+    <h2 class="section-title">Engagement Rings</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="engagement.jpg" alt="Engagement Ring 1">
+        <h3> Engagement Ring</h3>
+        <p>Where your forever begins with sparkle and beauty.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Engagement Ring')">Inquire</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wedding Rings Section -->
+  <section class="product-section" id="wedding">
+    <h2 class="section-title">Wedding Rings</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="wedding.jpg" alt="Wedding Ring 1">
+        <h3>Wedding Ring</h3>
+        <p>A bond sealed in gold and eternal commitment.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Wedding Ring')">Inquire</button>
+      </div>
+     
+    </div>
+  </section>
+
+  <!-- Anniversary Rings Section -->
+  <section class="product-section" id="anniversary">
+    <h2 class="section-title">Anniversary Rings</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="anniversery.jpg" alt="Anniversary Ring 1">
+        <h3> Anniversary Ring</h3>
+        <p>Celebrate love's journey with timeless elegance.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Anniversary Ring')">Inquire</button>
+      </div>
+    
+    </div>
+  </section>
+
+  <!-- Pendants Section -->
+  <section class="product-section" id="pendants">
+    <h2 class="section-title">Pendants</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="pendents.jpg" alt="Pendant 1">
+        <h3> Pendant</h3>
+        <p>A story close to your heart, beautifully crafted.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Pendant')">Inquire</button>
+      </div>
+     
+    </div>
+  </section>
+
+  <!-- Earrings Section -->
+  <section class="product-section" id="earrings">
+    <h2 class="section-title">Earrings</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="earings.jpg" alt="Earring 1">
+        <h3> Earrings</h3>
+        <p>Elegance in every sparkle and shimmer.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Earrings')">Inquire</button>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Bracelets Section -->
+  <section class="product-section" id="bracelets">
+    <h2 class="section-title">Bracelets</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="bracelet.jpg" alt="Bracelet 1">
+        <h3> Bracelet</h3>
+        <p>Grace and elegance for your wrist.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Bracelet')">Inquire</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bangles Section -->
+  <section class="product-section" id="bangles">
+    <h2 class="section-title">Bangles</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="bangles.jpg" alt="Bangle 1">
+        <h3> Bangle</h3>
+        <p>Tradition meets modern style and grace.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Bangle')">Inquire</button>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Necklace Section -->
+  <section class="product-section" id="necklace">
+    <h2 class="section-title">Necklaces</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="neckless.jpg" alt="Necklace 1">
+        <h3>Gold Necklace</h3>
+        <p>Beauty that frames you perfectly.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Necklace')">Inquire</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Jewellery Section -->
+  <section class="product-section" id="other">
+    <h2 class="section-title">Other Jewellery</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="saree pin.jpg" alt="Other Jewel 1">
+        <h3>Unique Pieces</h3>
+        <p>Unique pieces for every style and preference.</p>
+        <button class="card-btn" onclick="contactOnWhatsApp('Other Jewellery')">Inquire</button>
+      </div>
+     
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="social-icons">
+    <a href="https://wa.me/94701960497" class="social-icon" title="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://www.facebook.com/share/1BjtX9ffbg/" class="social-icon" title="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://www.instagram.com/lust_relore" class="social-icon" title="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.tiktok.com/@lustre.lore0" class="social-icon" title="TikTok">
+      <i class="fab fa-tiktok"></i>
+    </a>
+  </div>
+  <p style="margin-top:12px">© 2025 Lustre & Lore – All rights reserved</p>
+</footer>
+
+<script>
+function showCategory(categoryId, event) {
+  event.preventDefault();
+  
+  // Hide all sections
+  const sections = document.querySelectorAll('.product-section');
+  sections.forEach(section => section.classList.remove('active'));
+  
+  // Remove active class from all buttons
+  const buttons = document.querySelectorAll('.cat-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  
+  // Show selected section
+  const selectedSection = document.getElementById(categoryId);
+  if (selectedSection) {
+    selectedSection.classList.add('active');
+  }
+  
+  // Add active class to clicked button
+  event.target.classList.add('active');
+  
+  // Scroll to section
+  selectedSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function contactOnWhatsApp(product) {
+  const message = `I am interested in your ${product}. Please provide more details.`;
+  const phone = '94701960497';
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+}
+</script>
+</body>
+</html>
