@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Payment & Delivery — Lustre & Lore</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+/* ====== Base ====== */
+body {
+  font-family: 'Cinzel', serif;
+  background: #fdfaf6;
+  color: #2b1e0f;
+  margin: 0;
+}
+a {
+  color: #b88746;
+  text-decoration: none;
+  text-transform: none;
+}
+a:hover { color: #7a5c2b; }
+
+/* ====== Header ====== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 36px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e7d09a;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+header img {
+  height: 56px;
+  border-radius: 6px;
+}
+.site-name {
+  font-weight: 800;
+  color: #b88746;
+  font-size: 22px;
+  letter-spacing: 1px;
+  text-transform: none;
+}
+.menu button {
+  background: none;
+  border: none;
+  color: #b88746;
+  margin-left: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  transition: color 0.3s;
+  text-transform: none;
+}
+.menu button:hover {
+  color: #7a5c2b;
+}
+
+/* ====== Main content ====== */
+main {
+  padding: 60px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+h1 {
+  color: #b88746;
+  margin-bottom: 18px;
+  font-size: 32px;
+  text-transform: none;
+}
+p {
+  color: #5b3b00;
+  line-height: 1.7;
+  font-size: 18px;
+  text-align: justify;
+  text-transform: none;
+}
+
+/* ====== Footer ====== */
+footer {
+  background: radial-gradient(circle, #fffdf6, #f3f0e6);
+  color: #b88746;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 40px;
+  border-top: 1px solid #b88746;
+  text-transform: none;
+}
+footer a {
+  color: #b88746;
+  text-transform: none;
+}
+footer a:hover {
+  color: #7a5c2b;
+}
+.social-icon {
+  font-size: 28px;
+  color: #b88746;
+  margin: 0 12px;
+  transition: color 0.3s, transform 0.3s;
+}
+.social-icon:hover {
+  color: #7a5c2b;
+  transform: scale(1.1);
+}
+
+/* ====== Responsive ====== */
+@media (max-width:600px){
+  header { padding: 12px 16px; }
+  main { padding: 40px 16px; }
+  h1 { font-size: 26px; }
+  p { font-size: 16px; }
+}
+
+/* ====== Floating WhatsApp Button ====== */
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, background-color 0.3s;
+}
+.whatsapp-float:hover {
+  background-color: #1ebc57;
+  transform: scale(1.1);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;gap:12px">
+    <img src="WhatsApp Image 2025-10-31 at 22.50.35_c587fbb9.jpg" alt="logo">
+    <div class="site-name">Lustre & Lore</div>
+  </div>
+  <div class="menu">
+    <button onclick="location.href='index.html'">Home</button>
+    <button onclick="location.href='products.html'">Products</button>
+    <button onclick="location.href='about.html'">About</button>
+    <button onclick="location.href='contact.html'">Contact</button>
+    <button onclick="location.href='privacy.html'">Privacy Policy</button>
+    <button onclick="location.href='terms.html'">Terms & Conditions</button>
+  </div>
+</header>
+
+<main>
+  <h1>Payment & Delivery</h1>
+  <p>
+    At <strong>L&L (Lustre & Lore)</strong>, each jewellery piece is specially designed and handcrafted just for you.
+    To begin the creation process, we require an advance payment of 25%–50% of the total value.
+    The exact amount depends on the chosen metal and type of gemstone.
+  </p>
+  <p>
+    Once your design is confirmed and the advance is received, we will issue an official receipt for your trust and security.
+    Your finished jewellery will be delivered to you through Cash on Delivery (COD), where you can pay the remaining balance at the time of delivery.
+  </p>
+  <p>
+    We ensure a smooth, transparent, and safe process from the first sketch to the moment you wear your personalised masterpiece.
+  </p>
+</main>
+
+<footer>
+  <div>
+    <a href="https://wa.me/94703824143" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://facebook.com/" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://instagram.com/" class="social-icon"><i class="fab fa-instagram"></i></a>
+    <a href="https://tiktok.com/" class="social-icon"><i class="fab fa-tiktok"></i></a>
+  </div>
+  <p style="margin-top:12px">© 2025 Lustre & Lore – All rights reserved</p>
+</footer>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/94701960497" class="whatsapp-float" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+</body>
+</html>

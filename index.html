@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lustre & Lore — Dream Jewelry Designer</title>
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ====== Base ====== */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Cinzel',serif;background:#fdfaf6;color:#2b1e0f}
+a{color:inherit;text-decoration:none}
+
+/* ====== Header ====== */
+header{position:fixed;left:0;right:0;top:0;height:86px;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;z-index:1200;background:rgba(255,255,255,0.95);backdrop-filter: blur(6px)}
+.logo { display: flex; align-items: center; gap: 12px; }
+/* increased logo size for desktop, scales down on mobile */
+#siteLogo { height:110px; width:110px; border-radius: 6px; object-fit:cover; }
+.site-name { font-weight: 800; color: #b88746; letter-spacing: 1px; text-transform: none; font-size: 20px; }
+.menu{display:flex;gap:10px;align-items:center;flex-wrap:nowrap;overflow-x:auto;padding-left:8px}
+.menu button{background:none;border:none;color:#b88746;padding:8px 10px;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap}
+.menu button:hover{color:#7a5c2b}
+
+/* ====== Hero / Slider ====== */
+.hero{height:78vh;display:flex;align-items:center;justify-content:center;padding-top:86px;position:relative;overflow:hidden}
+.slider{width:100%;max-width:1100px;height:56vh;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.18);position:relative}
+.slider img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.slider img.active{opacity:1}
+
+/* ====== CTA Buttons ====== */
+/* larger tappable buttons */
+.cta-area{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;display:flex;gap:12px;z-index:40;flex-wrap:wrap;justify-content:center}
+.dream-btn, .gift-btn{position:relative;padding:16px 26px;border-radius:30px;border:none;font-weight:800;letter-spacing:.4px;cursor:pointer;box-shadow:0 10px 26px rgba(184,135,70,0.12);transition:all .22s;font-size:16px}
+.dream-btn{background:linear-gradient(90deg,#fefefe,#f7f0e6);color:#b88746}
+.gift-btn{background:linear-gradient(90deg,#f7e6f0,#fff0f7);color:#b44d84}
+
+/* ====== Modal ====== */
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;padding:12px;z-index:1400;overflow-y:auto}
+.modal{background:#fff;color:#111;border-radius:12px;padding:16px;max-width:680px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.35);max-height:92vh;overflow-y:auto}
+.modal h3{font-size:18px;margin-bottom:10px;color:#2b2b2b}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-grid input, .form-grid select{padding:10px;border-radius:8px;border:1px solid #ddd;font-size:15px;width:100%}
+.form-grid .full{grid-column:1/-1}
+.modal .submit{margin-top:12px;padding:12px 14px;border-radius:10px;border:none;background:#2b1e0f;color:#fff;cursor:pointer;width:100%}
+
+/* ====== Selection area (2 columns x 9 rows) ====== */
+.selection-area{display:none;padding:18px;min-height:60vh;position:relative}
+.info-banner{background:#fff8e6;color:#5b3b00;padding:10px;border-radius:8px;border:1px solid #f2d89b;margin-bottom:12px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.timer{font-size:16px;font-weight:bold;color:#d9534f}
+.rows{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.rows img{width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer;transition:transform .12s,outline .12s}
+.rows img.selected{outline:4px solid rgba(184,135,70,0.95);transform:scale(1.02)}
+.submit-final{display:block;margin:18px auto 0;padding:12px 20px;border-radius:12px;border:none;background:linear-gradient(90deg,#fefefe,#f7f0e6);color:#b88746;font-weight:900;cursor:pointer;width:100%;max-width:320px}
+
+/* ====== Gift type buttons ====== */
+.gift-type{display:none;text-align:center;margin-top:12px}
+.gift-type button{padding:12px 18px;border-radius:20px;margin:6px;border:none;background:#b88746;color:#fff;cursor:pointer}
+
+/* ====== Floating WhatsApp button ====== */
+.wa-float{position:fixed;right:14px;bottom:14px;background:#25D366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,0.18);z-index:1600;cursor:pointer;}
+.wa-float i{font-size:20px}
+
+/* ====== Footer ====== */
+footer{padding:22px 12px;background:radial-gradient(circle,#fffdf6,#f3f0e6);color:#b88746;text-align:center;margin-top:40px;border-top:1px solid #b88746}
+.social-icons{margin-bottom:10px}
+.social-icons a{display:inline-block;font-size:20px;color:#b88746;margin:0 8px}
+
+/* ====== Responsive improvements ====== */
+@media (max-width:900px){
+  .slider{height:48vh}
+  .form-grid{grid-template-columns:1fr}
+  .rows img{height:140px}
+  .menu{gap:8px}
+  .site-name{font-size:18px}
+}
+@media (max-width:600px){
+  header{position:sticky;top:0;height:auto;padding:10px}
+  .logo{gap:8px}
+  /* scaled logo on mobile */
+  #siteLogo{height:72px;width:72px}
+  .site-name{font-size:16px}
+  .hero{height:62vh;padding-top:0}
+  .slider{height:40vh;border-radius:12px;margin-top:8px}
+  .cta-area{bottom:12px}
+  .rows{grid-template-columns:repeat(2,1fr);gap:10px}
+  .rows img{height:110px}
+  .modal{padding:12px}
+  .form-grid input,.form-grid select{font-size:14px;padding:8px}
+  .menu{flex-wrap:nowrap;overflow-x:auto}
+}
+@media (max-width:420px){
+  .rows img{height:100px}
+  .slider{height:34vh}
+  .site-name{font-size:14px}
+  .menu button{font-size:12px;padding:6px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="index.html" aria-label="Home">
+      <img src="WhatsApp Image 2025-10-31 at 22.50.35_c587fbb9.jpg" alt="Lustre & Lore logo" id="siteLogo">
+    </a>
+    <div class="site-name">Lustre & Lore</div>
+  </div>
+  <div class="menu" role="navigation" aria-label="Main menu">
+    <button type="button" onclick="location.href='about.html'">About Us</button>
+    <button type="button" onclick="location.href='products.html'">Our Products</button>
+    <button type="button" onclick="location.href='contact.html'">Contact Us</button>
+    <button type="button" onclick="location.href='payment.html'">Payment & Delivery</button>
+    <button type="button" onclick="location.href='privacy.html'">Privacy Policy</button>
+    <button type="button" onclick="location.href='terms.html'">Terms & Conditions</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="slider" id="heroSlider">
+    <img src="cover.jpg" class="active" alt="slider1">
+    <img src="orange.jpg" alt="slider2">
+    <img src="dark red.jpg" alt="slider3">
+    <img src="yellow.jpg" alt="slider4">
+    <img src="red.jpg" alt="slider5">
+    <img src="purple.jpg" alt="slider6">
+  </div>
+
+  <div class="cta-area">
+    <button type="button" class="dream-btn" id="dreamBtn">Design My Dream</button>
+    <button type="button" class="gift-btn" id="giftBtn">Send as a Gift</button>
+  </div>
+</section>
+
+<!-- CUSTOMER DETAILS MODAL -->
+<div class="backdrop" id="backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Fil your details</h3>
+   <div class="form-grid">
+      <input id="name" placeholder="Full name" type="text">
+      <!-- label added above date input -->
+      <div class="full">
+        <label style="display:block;margin-bottom:8px;font-weight:bold;font-size:14px;">Date of Birth:</label>
+        <input id="dob" placeholder="Select your date" type="date" aria-label="Date of Birth">
+      </div>
+      <input id="town" placeholder="Birth town" type="text">
+      <div class="full">
+        <label style="display:block;margin-bottom:8px;font-weight:bold;font-size:14px;">Birth Time:</label>
+        <!-- simplified time setter -->
+        <input id="timeSet" type="time" style="margin-top:6px;padding:8px;border-radius:8px;border:1px solid #ddd;width:100%;" aria-label="Birth time">
+        <!-- canonical hidden time field -->
+        <input id="time" type="hidden" value="00:00">
+      </div>
+      <input id="whatsapp" placeholder="WhatsApp number (e.g. +9470...)" class="full" type="tel">
+      <select id="jewelry" class="full">
+        <option value="">Select Required Jewelry</option>
+        <option>Wedding Rings</option>
+        <option >Praposal Rings</option>
+        <option >Anniversery Rings</option>
+        <option>Engagement Rings</option>
+        <option>Pendants</option>
+        <option>Bangles</option>
+        <option>Bracelets</option>
+        <option>Necklace</option>
+        <option>Earrings</option>
+      </select>
+    </div>
+    <button type="button" class="submit" id="formSubmit">Submit and Continue</button>
+  </div>
+</div>
+
+<!-- Selection Area for Dream -->
+<section class="selection-area" id="selectionArea" aria-hidden="true">
+  <div class="info-banner" id="infoBanner">
+    <span>Select one image from each row</span>
+    <div class="timer" id="timer">45s</div>
+  </div>
+  <div class="rows" id="rowsContainer" aria-live="polite"></div>
+  <button type="button" class="submit-final" id="submitFinal" style="display:none">Submit & Send Email</button>
+</section>
+
+<!-- Gift type -->
+<div class="gift-type" id="giftType" style="display:none">
+  <button type="button" id="giftHer">To Her</button>
+  <button type="button" id="giftHim">To Him</button>
+</div>
+
+<!-- Gift info form -->
+<div class="backdrop" id="giftBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Gift Details</h3>
+    <div class="form-grid">
+      <input id="giftSenderName" placeholder="Sender name" type="text">
+      <input id="giftSenderWhatsApp" placeholder="Sender WhatsApp number" type="tel">
+      <select id="giftProduct" class="full">
+        <option value="">Select Product</option>
+        <option>Wedding Rings</option>
+        <option >Praposal Rings</option>
+        <option>Anniversery Rings</option>
+        <option>Engagement Rings</option>
+        <option>Pendants</option>
+        <option>Bangles</option>
+        <option>Bracelets</option>
+        <option>Necklace</option>
+        <option>Earrings</option>
+      </select>
+      <input id="giftBudget" placeholder="Your budget" type="text" class="full">
+      <input id="giftRecipientAddress" placeholder="Recipient address" type="text" class="full">
+      <input id="giftRecipientMobile" placeholder="Recipient mobile number" type="tel" class="full">
+    </div>
+    <button type="button" class="submit" id="giftSubmit">Submit Gift</button>
+  </div>
+</div>
+
+<div class="wa-float" id="waFloat" style="display:none" title="Contact on WhatsApp">
+  <i class="fab fa-whatsapp" aria-hidden="true"></i>
+</div>
+
+<footer>
+  <div class="social-icons">
+    <a href="https://wa.me/94701960497" target="_blank" rel="noreferrer">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://www.facebook.com/share/1BjtX9ffbg/" target="_blank" rel="noreferrer">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://www.instagram.com/lust_relore?utm_source=qr&igsh=MXhwNmlndGFyOWxtbg==" target="_blank" rel="noreferrer">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.tiktok.com/@lustre.lore0?_r=1&_t=ZS-91BbNl51EoP" target="_blank" rel="noreferrer">
+      <i class="fab fa-tiktok"></i>
+    </a>
+  </div>
+  <div class="footer-text">© 2025 Lustre & Lore — Crafted with Elegance</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const CONFIG = {
+    emailTo: 'lustre.loredesign@gmail.com',
+    dreamImages: [
+      'ONE.jpg','ONE2.jpg','TWO.jpg','TWO2.jpg','THREE.jpg','THREE2.jpg',
+      'FOUR.jpg','FOUR2.jpg','FIVE.jpg','FIVE2.jpg','SIX.jpg','SIX2.jpg',
+      'SEVEN.jpg','SEVEN2.jpg','EIGHT.jpg','EIGHT2.jpg','NINE.jpg','NINE2.jpg'
+    ],
+    waPhone: '94701960497'
+  };
+
+  // slider
+  (function(){
+    const slider = document.getElementById('heroSlider');
+    if(!slider) return;
+    const imgs = slider.querySelectorAll('img');
+    let idx = 0;
+    setInterval(()=>{
+      imgs.forEach(i=>i.classList.remove('active'));
+      idx = (idx+1) % imgs.length;
+      imgs[idx].classList.add('active');
+    },3000);
+  })();
+
+  // set-time control wiring
+  (function(){
+    const timeSet = document.getElementById('timeSet');
+    if(!timeSet) return;
+    const canonical = document.getElementById('time');
+    if(canonical && canonical.value) timeSet.value = canonical.value;
+    else timeSet.value = '00:00';
+    timeSet.addEventListener('input', ()=> {
+      if(canonical) canonical.value = timeSet.value;
+    });
+    if(canonical) canonical.value = timeSet.value;
+  })();
+
+  // elements
+  const dreamBtn = document.getElementById('dreamBtn');
+  const giftBtn = document.getElementById('giftBtn');
+  const backdrop = document.getElementById('backdrop');
+  const giftBackdrop = document.getElementById('giftBackdrop');
+  const formSubmit = document.getElementById('formSubmit');
+  const selectionArea = document.getElementById('selectionArea');
+  const rowsContainer = document.getElementById('rowsContainer');
+  const submitFinal = document.getElementById('submitFinal');
+  const waFloat = document.getElementById('waFloat');
+  const timerDisplay = document.getElementById('timer');
+
+  let userData = null;
+  let selections = [];
+  let selectionTimer = null;
+
+  if(dreamBtn) dreamBtn.addEventListener('click', ()=>{
+    if(backdrop){ backdrop.style.display='flex'; backdrop.setAttribute('aria-hidden','false'); const el = document.getElementById('name'); if(el) el.focus(); }
+  });
+
+  // show gift-type chooser when Send as a Gift clicked
+  if(giftBtn){
+    giftBtn.addEventListener('click', ()=> {
+      const gt = document.getElementById('giftType');
+      if(giftBackdrop){ giftBackdrop.style.display = 'none'; giftBackdrop.setAttribute('aria-hidden','true'); }
+      if(gt){
+        gt.style.display = 'block';
+        gt.style.zIndex = '1500';
+        const b = gt.querySelector('button');
+        if(b) b.focus();
+      }
+    });
+  }
+
+  if(backdrop) backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop){ backdrop.style.display='none'; backdrop.setAttribute('aria-hidden','true'); }});
+  if(giftBackdrop) giftBackdrop.addEventListener('click', (e)=>{ if(e.target === giftBackdrop){ giftBackdrop.style.display='none'; giftBackdrop.setAttribute('aria-hidden','true'); }});
+
+  if(formSubmit){
+    formSubmit.addEventListener('click', ()=>{
+      const name = (document.getElementById('name')||{}).value?.trim() || '';
+      const dob = (document.getElementById('dob')||{}).value?.trim() || '';
+      const town = (document.getElementById('town')||{}).value?.trim() || '';
+      const time = (document.getElementById('time')||{}).value?.trim() || '';
+      const whatsapp = (document.getElementById('whatsapp')||{}).value?.trim() || '';
+      const jewelry = (document.getElementById('jewelry')||{}).value?.trim() || '';
+
+      if(!name || !dob || !town || !time || !whatsapp || !jewelry){
+        alert('Please fill all fields');
+        return;
+      }
+      userData = { name, dob, town, time, whatsapp, jewelry };
+      backdrop.style.display='none';
+      buildSelectionGrid();
+      selectionArea.style.display='block';
+      selectionArea.setAttribute('aria-hidden','false');
+      if(waFloat) waFloat.style.display='flex';
+      startSelectionTimer();
+      if(selectionArea) window.scrollTo({ top: selectionArea.offsetTop - 20, behavior: 'smooth' });
+    });
+  }
+
+  function startSelectionTimer(){
+    let timeLeft = 45;
+    if(timerDisplay) timerDisplay.textContent = '45s';
+    if(selectionTimer) clearInterval(selectionTimer);
+    selectionTimer = setInterval(()=>{
+      timeLeft--;
+      if(timerDisplay) timerDisplay.textContent = timeLeft + 's';
+      if(timeLeft <= 0){
+        clearInterval(selectionTimer);
+        alert('Time expired! Please select images again.');
+        selectionArea.style.display='none';
+        backdrop.style.display='flex';
+      }
+    }, 1000);
+  }
+
+  // Build a 2-column grid of images (18 images -> 9 rows)
+  function buildSelectionGrid(){
+    if(!rowsContainer) return;
+    rowsContainer.innerHTML = '';
+    const imgs = CONFIG.dreamImages || [];
+    const rowsCount = Math.ceil(imgs.length / 2);
+    selections = Array(rowsCount).fill(null);
+
+    imgs.forEach((src, idx) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `img-${idx+1}`;
+      // store row index (0..8)
+      const rowIndex = Math.floor(idx / 2);
+      img.dataset.row = String(rowIndex);
+      img.addEventListener('click', ()=> {
+        // remove selected state for other images in same row
+        const others = rowsContainer.querySelectorAll(`img[data-row="${rowIndex}"]`);
+        others.forEach(o => o.classList.remove('selected'));
+        img.classList.add('selected');
+        selections[rowIndex] = src;
+        // show submit if all rows have a selection
+        if(!selections.includes(null) && submitFinal) submitFinal.style.display = 'block';
+      });
+      rowsContainer.appendChild(img);
+    });
+
+    // ensure submit hidden until complete
+    if(submitFinal) submitFinal.style.display = 'none';
+  }
+
+  if(submitFinal){
+    submitFinal.addEventListener('click', ()=>{
+      if(selectionTimer) clearInterval(selectionTimer);
+      if(!userData){
+        alert('Please complete your details first.');
+        return;
+      }
+      const chosen = selections.map((s, idx)=> `Row ${idx+1}: ${s || 'No selection'}`).join('\n');
+      const bodyText = `Customer: ${userData.name}\nDOB: ${userData.dob}\nTown: ${userData.town}\nTime: ${userData.time}\nWhatsApp: ${userData.whatsapp}\nRequired Jewelry: ${userData.jewelry}\n\nSelections:\n${chosen}`;
+      const subject = `Dream Jewelry Submission for ${userData.name}`;
+      const mailto = `mailto:${CONFIG.emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      const opened = window.open(mailto, '_blank');
+      if(!opened) window.location.href = mailto;
+    });
+  }
+
+  // Gift flow (unchanged)
+  const giftType = document.getElementById('giftType');
+  const giftHer = document.getElementById('giftHer');
+  const giftHim = document.getElementById('giftHim');
+  const giftSubmit = document.getElementById('giftSubmit');
+  let giftChoice = '';
+
+  function openGiftForm(type){
+    giftChoice = type || '';
+    if(giftType) giftType.style.display='none';
+    if(giftBackdrop){ giftBackdrop.style.display='flex'; giftBackdrop.setAttribute('aria-hidden','false'); }
+    const title = giftBackdrop?.querySelector('h3');
+    if(title) title.textContent = `Gift Details (${type})`;
+    const first = giftBackdrop?.querySelector('#giftSenderName');
+    if(first) first.focus();
+  }
+  if(giftHer) giftHer.addEventListener('click', ()=> openGiftForm('Her'));
+  if(giftHim) giftHim.addEventListener('click', ()=> openGiftForm('Him'));
+
+  if(giftSubmit){
+    giftSubmit.addEventListener('click', ()=>{
+      const senderName = (document.getElementById('giftSenderName')||{}).value?.trim() || '';
+      const senderWhatsApp = (document.getElementById('giftSenderWhatsApp')||{}).value?.trim() || '';
+      const product = (document.getElementById('giftProduct')||{}).value?.trim() || '';
+      const budget = (document.getElementById('giftBudget')||{}).value?.trim() || '';
+      const recipientAddress = (document.getElementById('giftRecipientAddress')||{}).value?.trim() || '';
+      const recipientMobile = (document.getElementById('giftRecipientMobile')||{}).value?.trim() || '';
+
+      if(!senderName || !senderWhatsApp || !product || !budget || !recipientAddress || !recipientMobile){
+        alert('Please fill all fields');
+        return;
+      }
+
+      const answersheet = [
+        `Gift Type: ${giftChoice || 'N/A'}`,
+        `Sender: ${senderName}`,
+        `Sender WhatsApp: ${senderWhatsApp}`,
+        `Product: ${product}`,
+        `Budget: ${budget}`,
+        `Recipient Address: ${recipientAddress}`,
+        `Recipient Mobile: ${recipientMobile}`
+      ].join('\n');
+
+      const rawTarget = recipientMobile || senderWhatsApp || CONFIG.waPhone;
+      const target = String(rawTarget).replace(/[^\d]/g,'');
+      if(!target){
+        alert('No valid WhatsApp number to send to.');
+        return;
+      }
+
+      const waUrl = `https://wa.me/${target}?text=${encodeURIComponent(answersheet)}`;
+      window.open(waUrl, '_blank');
+
+      if(giftBackdrop){ giftBackdrop.style.display='none'; giftBackdrop.setAttribute('aria-hidden','true'); }
+      if(giftType) giftType.style.display='none';
+      giftChoice = '';
+      ['giftSenderName','giftSenderWhatsApp','giftProduct','giftBudget','giftRecipientAddress','giftRecipientMobile'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.value = '';
+      });
+    });
+  }
+
+
+  if(waFloat){
+    waFloat.addEventListener('click', ()=> {
+      window.open(`https://wa.me/${CONFIG.waPhone}`, '_blank');
+    });
+    waFloat.style.display='flex'; // Add this line - shows WhatsApp button on page load
+  }
+
+  // graceful fallback for missing images
+  window.addEventListener('error', (e)=>{ 
+    if(e.target && e.target.tagName==='IMG'){ 
+      e.target.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="100%" height="100%" fill="%23f3efe8"/><text x="50%" y="50%" fill="%238c6d3d" font-size="22" text-anchor="middle" dominant-baseline="middle">image not found</text></svg>';
+    } 
+  }, true);
+
+});
+
+</script>
+</body>
+</html>
