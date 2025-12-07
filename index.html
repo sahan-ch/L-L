@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  // Gift flow (unchanged)
+  // Gift flow
   const giftType = document.getElementById('giftType');
   const giftHer = document.getElementById('giftHer');
   const giftHim = document.getElementById('giftHim');
@@ -442,14 +442,7 @@ document.addEventListener('DOMContentLoaded', function(){
         `Recipient Mobile: ${recipientMobile}`
       ].join('\n');
 
-      const rawTarget = recipientMobile || senderWhatsApp || CONFIG.waPhone;
-      const target = String(rawTarget).replace(/[^\d]/g,'');
-      if(!target){
-        alert('No valid WhatsApp number to send to.');
-        return;
-      }
-
-      const waUrl = `https://wa.me/${target}?text=${encodeURIComponent(answersheet)}`;
+      const waUrl = `https://wa.me/94701960497?text=${encodeURIComponent(answersheet)}`;
       window.open(waUrl, '_blank');
 
       if(giftBackdrop){ giftBackdrop.style.display='none'; giftBackdrop.setAttribute('aria-hidden','true'); }
@@ -462,12 +455,11 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-
   if(waFloat){
     waFloat.addEventListener('click', ()=> {
       window.open(`https://wa.me/${CONFIG.waPhone}`, '_blank');
     });
-    waFloat.style.display='flex'; // Add this line - shows WhatsApp button on page load
+    waFloat.style.display='flex';
   }
 
   // graceful fallback for missing images
